@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>for-panditayin 😌</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      max-width: 420px;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    h1 { color: #ff4d6d; }
+
+    p { font-size: 18px; color: #333; }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    button:hover { transform: scale(1.1); }
+
+    #noBtn {
+      position: absolute;
+    }
+
+    .hidden { display: none; }
+
+    .love {
+      font-size: 22px;
+      color: #ff4d6d;
+      margin-top: 15px;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      animation: floatUp 3s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-200px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>ओए निक्की पंडितायिन 😏</h1>
+    <p>
+      अरे सुनो निक्की पंडितायिन 😌<br>
+      तुम ना… पूरा दिन हमरा ध्यान भटका देत रहो 😏<br>
+      ऊपर से ऐसे मासूम बनत हो जैसे कुछ पता ही ना हो 😇<br>
+      सच्ची बताई… दिमाग तो घूमे देले बाड़ू 😵‍💫<br>
+      अउर दिल… ऊ त पूरा के पूरा ले गइनी हो ❤️
+    </p>
+
+    <button onclick="startFun()">यहाँ क्लिक करो (अगर हिम्मत है 😌)</button>
+
+    <div id="stage2" class="hidden">
+      <p>अच्छा सुनो, एक छोट सा सवाल बा 😌</p>
+      <p><b>बताओ ना… आज रात थोड़ा naughty mood में हमरा साथ रहबू? 😏🔥</b></p>
+      <button onclick="yesClicked()">हाँ 😍</button>
+      <button id="noBtn" onmouseover="moveNo()">ना 🙄</button>
+    </div>
+
+    <div id="result" class="hidden"></div>
+  </div>
+
+  <script>
+    function startFun() {
+      document.getElementById('stage2').classList.remove('hidden');
+    }
+
+    function yesClicked() {
+      const res = document.getElementById('result');
+      res.classList.remove('hidden');
+      res.innerHTML = "<div class='love'>देखलू… हमके पहिले से पता रहे 😏🔥<br>अब बहाना-वहाना ना चली 😌❤️</div>";
+      startHearts();
+    }
+
+    let yesSize = 1;
+
+    const yesLines = [
+      "हाँ 😍 (अब का सोचत बाड़ू 😏)",
+      "हाँ 😍 (बस दबा द ना 😌)",
+      "हाँ 😍 (इतना नखरा काहे 😏)",
+      "हाँ 😍 (मान भी जाओ अब 😌)",
+      "हाँ 😍 (दिल से चाहत बाड़ू ना 😏)",
+      "हाँ 😍 (हमरा साथ आ जाओ 😌)",
+      "हाँ 😍 (अब भागे से काम ना चली 😏)"
+    ];
+
+    function moveNo() {
+      const btn = document.getElementById('noBtn');
+      const yesBtn = document.querySelector("button[onclick=\"yesClicked()\"]");
+
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+
+      yesSize += 0.2;
+      yesBtn.style.transform = `scale(${yesSize})`;
+      yesBtn.style.background = '#ff1f4d';
+
+      const randomLine = yesLines[Math.floor(Math.random() * yesLines.length)];
+      yesBtn.innerText = randomLine;
+    }
+
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.top = window.innerHeight + 'px';
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 3000);
+      }, 300);
+    }
+  </script>
+</body>
+</html>
