@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>for-panditayin 😌</title>
+
   <style>
     body {
       margin: 0;
@@ -52,8 +53,11 @@
 
     button:hover { transform: scale(1.1); }
 
+    /* FIXED NO BUTTON */
     #noBtn {
       position: absolute;
+      left: 60%;
+      top: 70%;
     }
 
     .hidden { display: none; }
@@ -82,9 +86,11 @@
     }
   </style>
 </head>
+
 <body>
   <div class="card">
     <h1>ओए निक्की पंडितायिन 😏</h1>
+
     <p>
       अरे सुनो निक्की पंडितायिन 😌<br>
       तुम ना… पूरा दिन हमरा ध्यान भटका देत रहो 😏<br>
@@ -98,8 +104,9 @@
     <div id="stage2" class="hidden">
       <p>अच्छा सुनो, एक छोट सा सवाल बा 😌</p>
       <p><b>बताओ ना… आज रात थोड़ा naughty mood में हमरा साथ रहबू? 😏🔥</b></p>
+
       <button onclick="yesClicked()">हाँ 😍</button>
-      <button id="noBtn" onmouseover="moveNo()">ना 🙄</button>
+      <button id="noBtn" onmousemove="moveNo(event)">ना 🙄</button>
     </div>
 
     <div id="result" class="hidden"></div>
@@ -129,18 +136,25 @@
       "हाँ 😍 (अब भागे से काम ना चली 😏)"
     ];
 
-    function moveNo() {
+    function moveNo(event) {
       const btn = document.getElementById('noBtn');
+      const card = document.querySelector('.card');
+      const rect = card.getBoundingClientRect();
+
+      const btnWidth = btn.offsetWidth;
+      const btnHeight = btn.offsetHeight;
+
+      // New position inside card only
+      let newX = Math.random() * (rect.width - btnWidth);
+      let newY = Math.random() * (rect.height - btnHeight);
+
+      btn.style.left = newX + "px";
+      btn.style.top = newY + "px";
+
+      // Grow YES button
       const yesBtn = document.querySelector("button[onclick=\"yesClicked()\"]");
-
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 100);
-      btn.style.left = x + 'px';
-      btn.style.top = y + 'px';
-
-      yesSize += 0.2;
+      yesSize += 0.15;
       yesBtn.style.transform = `scale(${yesSize})`;
-      yesBtn.style.background = '#ff1f4d';
 
       const randomLine = yesLines[Math.floor(Math.random() * yesLines.length)];
       yesBtn.innerText = randomLine;
